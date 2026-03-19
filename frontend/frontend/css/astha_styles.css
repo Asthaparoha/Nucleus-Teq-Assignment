@@ -28,3 +28,23 @@ header img {
     border: 3px solid black;
     margin-top: 10px;
 }
+/* Using flexbox to align navigation horizontally */
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    background-color: #111;
+}
+
+/* Navigation links styling */
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 12px 18px;
+    display: block;
+}
+
+/* Hover effect for better user interaction */
+nav ul li a:hover {
+    background-color: #2563eb;
+}
