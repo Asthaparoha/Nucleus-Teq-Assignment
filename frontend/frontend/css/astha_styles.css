@@ -126,3 +126,27 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #2563eb;
 }
+/* Footer styling */
+footer {
+    text-align: center;
+    background-color: #111;
+    color: white;
+    padding: 15px;
+    font-size: 14px;
+}
+/* Making layout mobile-friendly */
+@media (max-width: 768px) {
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    section {
+        margin: 10px;
+    }
+
+    header img {
+        width: 140px;
+        height: 120px;
+    }
+}
