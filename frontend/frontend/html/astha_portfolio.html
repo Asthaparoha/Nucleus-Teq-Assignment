@@ -1,1 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Astha Paroha | Portfolio</title>
+</head>
 
+<body>
+
+    <!-- ================= HEADER ================= -->
+    <!-- I used header to keep my introduction separate from rest of content -->
+    <header>
+        <h1>Astha Paroha</h1>
+        <h2>Aspiring Web Developer</h2>
+
+        <!-- Profile image with alt text for accessibility -->
+        <img src="profile.jpg" alt="Astha Paroha profile picture" width="140">
+    </header>
+
+
+    <!-- ================= NAVIGATION ================= -->
+    <!-- Navigation helps users jump between sections easily -->
+    <nav>
+        <ul>
+            <li><a href="#about">About Me</a></li>
+
+            <!-- Nested list to show subcategories -->
+            <li>
+                <a href="#skills">Skills</a>
+                <ul>
+                    <li><a href="#tech">Technical Skills</a></li>
+                    <li><a href="#soft">Soft Skills</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#education">Education</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- ================= ABOUT SECTION ================= -->
+    <!-- Section tag is used to group related content -->
+    <section id="about">
+        <h2>About Me</h2>
+
+        <p>
+            I am currently pursuing engineering and have a strong interest in 
+            <strong>web development</strong>. I enjoy creating structured web pages 
+            using <em>semantic HTML</em> and learning how websites are built.
+        </p>
+
+        <!-- Used hr to visually separate sections -->
+        <hr>
+    </section>
+
+
+    <!-- ================= SKILLS ================= -->
+    <section id="skills">
+        <h2>Skills</h2>
+
+        <!-- Technical skills -->
+        <h3 id="tech">Technical Skills</h3>
+        <ul>
+            <li>HTML (Basics to Intermediate)</li>
+            <li>CSS (Learning Phase)</li>
+            <li>JavaScript (Beginner)</li>
+        </ul>
+
+        <!-- Soft skills -->
+        <h3 id="soft">Soft Skills</h3>
+        <ul>
+            <li>Good Communication</li>
+            <li>Team Collaboration</li>
+            <li>Problem Solving Ability</li>
+        </ul>
+    </section>
+
+
+    <!-- ================= EDUCATION ================= -->
+    <section id="education">
+        <h2>Education</h2>
+
+        <!-- Table is used for structured academic data -->
+        <table border="1">
+            <tr>
+                <th>Qualification</th>
+                <th>Institution</th>
+                <th>Year</th>
+                <th>Performance</th>
+            </tr>
+
+            <!-- Using rowspan to merge degree cell -->
+            <tr>
+                <td rowspan="2">B.Tech</td>
+                <td>LNCT Group</td>
+                <td>2022 - Present</td>
+                <td>Ongoing</td>
+            </tr>
+
+            <!-- Using colspan for specialization -->
+            <tr>
+                <td colspan="3">Branch: Computer Science Engineering</td>
+            </tr>
+
+            <tr>
+                <td>12th Grade</td>
+                <td>Ashoka Hall Senior Secondary School</td>
+                <td>2020</td>
+                <td>90%</td>
+            </tr>
+        </table>
+    </section>
+
+
+    <!-- ================= PROJECTS ================= -->
+    <section id="projects">
+        <h2>Projects</h2>
+
+        <!-- Ordered list to show project sequence -->
+        <ol>
+
+            <li>
+                <article>
+                    <h3>Personal Portfolio</h3>
+                    <p>
+                        A simple resume-style website created using HTML. 
+                        It helped me understand structure and semantic tags.
+                    </p>
+                    <a href="https://github.com/Asthaparoha" target="_blank">View Project</a>
+                </article>
+            </li>
+
+            <li>
+                <article>
+                    <h3>Landing Page Design</h3>
+                    <p>
+                        Built a basic landing page layout to practice lists, links, 
+                        and content organization.
+                    </p>
+                    <a href="https://github.com/Asthaparoha" target="_blank">View Project</a>
+                </article>
+            </li>
+
+        </ol>
+    </section>
+
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact">
+        <h2>Contact Me</h2>
+
+        <!-- Form collects user information -->
+        <form>
+
+            <!-- Name -->
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name"><br><br>
+
+            <!-- Email -->
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email"><br><br>
+
+            <!-- Radio buttons -->
+            <p>Gender:</p>
+            <input type="radio" id="male" name="gender">
+            <label for="male">Male</label>
+
+            <input type="radio" id="female" name="gender">
+            <label for="female">Female</label><br><br>
+
+            <!-- Checkboxes -->
+            <p>Areas of Interest:</p>
+            <input type="checkbox" id="frontend">
+            <label for="frontend">Frontend</label>
+
+            <input type="checkbox" id="backend">
+            <label for="backend">Backend</label><br><br>
+
+            <!-- Dropdown -->
+            <label for="country">Select Country:</label>
+            <select id="country">
+                <option>India</option>
+                <option>USA</option>
+                <option>Other</option>
+            </select><br><br>
+
+            <!-- Message -->
+            <label for="message">Message:</label><br>
+            <textarea id="message" rows="4" cols="30"></textarea><br><br>
+
+            <input type="submit" value="Send Message">
+
+        </form>
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+    <!-- Footer contains closing info and links -->
+    <footer>
+        <p>© 2026 Astha Paroha. All rights reserved.</p>
+
+        <p>
+            Connect with me:
+            <a href="https://www.linkedin.com/in/asthaparoha19/" target="_blank">LinkedIn</a>
+        </p>
+    </footer>
+
+</body>
+</html>
