@@ -83,3 +83,46 @@ th, td {
 tr:nth-child(even) {
     background-color: #f2f2f2;
 }
+/* Spacing between project items */
+#projects li {
+    margin-bottom: 15px;
+}
+
+/* Styling project links */
+#projects a {
+    color: #1e3a8a;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+/* Hover effect */
+#projects a:hover {
+    color: #2563eb;
+}
+/* Aligning form elements vertically */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+}
+
+/* Input styling */
+input, textarea, select {
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Button styling */
+input[type="submit"] {
+    background-color: #1e3a8a;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+/* Button hover */
+input[type="submit"]:hover {
+    background-color: #2563eb;
+}
