@@ -56,3 +56,30 @@ section {
     border-radius: 8px;
     box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
 }
+/* Improving readability of skill lists */
+#skills ul {
+    line-height: 1.8;
+}
+
+/* Highlighting headings */
+#skills h3 {
+    font-weight: bold;
+    margin-top: 10px;
+}
+/* Styling education table for clarity */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Alternate row coloring */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
