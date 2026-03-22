@@ -59,6 +59,23 @@ function renderProducts(data) {
     productList.appendChild(card);
   });
 }
+// ================== DELETE PRODUCT ==================
+function deleteProduct(id) {
+
+  // Confirm before deleting (good UX)
+  const confirmDelete = confirm("Are you sure you want to delete this product?");
+  if (!confirmDelete) return;
+
+  // Remove product from array
+  products = products.filter(p => p.id !== id);
+
+  // Update localStorage
+  localStorage.setItem("products", JSON.stringify(products));
+
+  // Re-render UI
+  applyFilters();
+  updateAnalytics();
+}
 // ================== FILTER + SEARCH + SORT ==================
 function applyFilters() {
 
