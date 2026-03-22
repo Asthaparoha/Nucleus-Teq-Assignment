@@ -111,5 +111,72 @@ option.textContent = cat;
 select.appendChild(option);
 });
 }
+// ================== ADD PRODUCT ==================
+document.getElementById("addForm").addEventListener("submit", function(e) {
+
+e.preventDefault();
+
+const newProduct = {
+id: Date.now(),
+name: document.getElementById("productName").value,
+price: Number(document.getElementById("productPrice").value),
+stock: Number(document.getElementById("productStock").value),
+category: document.getElementById("productCategory").value
+};
+
+products.push(newProduct);
+localStorage.setItem("products", JSON.stringify(products));
+
+populateCategories();
+applyFilters();
+updateAnalytics();
+
+this.reset();
+});
+
+// ================== DELETE PRODUCT ==================
+function deleteProduct(id) {
+products = products.filter(p => p.id !== id);
+localStorage.setItem("products", JSON.stringify(products));
+applyFilters();
+updateAnalytics();
+}
+
+// ================== EDIT PRODUCT ==================
+function editProduct(id) {
+const product = products.find(p => p.id === id);
+
+const newName = prompt("Enter new name:", product.name);
+const newPrice = prompt("Enter new price:", product.price);
+const newStock = prompt("Enter new stock:", product.stock);
+
+if (newName && newPrice && newStock) {
+product.name = newName;
+product.price = Number(newPrice);
+product.stock = Number(newStock);
+
+```
+localStorage.setItem("products", JSON.stringify(products));
+applyFilters();
+updateAnalytics();
+```
+
+}
+}
+
+// ================== EVENT LISTENERS ==================
+document.querySelectorAll("input, select").forEach(el => {
+el.addEventListener("input", applyFilters);
+});
+
+// ================== INITIAL LOAD ==================
+fetchProducts().then((data) => {
+
+document.getElementById("loadingMessage").style.display = "none";
+
+populateCategories();
+renderProducts(data);
+updateAnalytics();
+});
 
 
