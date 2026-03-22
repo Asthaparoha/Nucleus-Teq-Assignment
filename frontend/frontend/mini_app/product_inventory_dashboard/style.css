@@ -10,13 +10,13 @@
 
 body {
 font-family: Arial, sans-serif;
-background-color: #f4f6fb;
+background-color:#fff0f5;
 color: #333;
 }
 /* ===== HEADER ===== */
 
 .header {
-background: linear-gradient(135deg, #4f46e5, #6366f1);
+background: linear-gradient(135deg, #ff9bb3, #ffb6c1);
 color: white;
 padding: 25px;
 text-align: center;
@@ -106,10 +106,9 @@ margin-bottom: 5px;
 }
 
 /* Highlight low stock */
-
 .low-stock {
-color: red;
-font-weight: bold;
+  color: #ff4d6d;
+  font-weight: bold;
 }
 /* ===== FORM SECTION ===== */
 
@@ -132,22 +131,32 @@ padding: 8px;
 border: 1px solid #ccc;
 border-radius: 6px;
 }
+#emptyMessage {
+  padding: 20px;
+  font-size: 16px;
+  color: #999;
+}
 
 /* Button styling */
 
 button {
 padding: 8px;
 border: none;
-background: #4f46e5;
+background: #ff6f91;
 color: white;
 border-radius: 6px;
 cursor: pointer;
 }
 
 button:hover {
-background: #3730a3;
+background: #ff4f7a;
 }
-
+button {
+  transition: 0.2s;
+}
+input, select {
+  border: 1px solid #ffc0cb;
+}
 /* ===== LOADING ===== */
 
 #loadingMessage {
