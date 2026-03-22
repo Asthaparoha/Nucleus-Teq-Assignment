@@ -144,32 +144,62 @@ The application follows a clear layout:
 * Highlight for low stock items
 
 ---
-
 ## 📸 Screenshots
 
 ### 🏠 Dashboard View
+Displays all products along with analytics.
+
+![Dashboard](./screenshots/Dashboard Main.png)
 
 ---
 
 ### 🔍 Category Filtering
+Filters products based on selected category.
+
+![Category](./screenshots/Category.png)
 
 ---
 
 ### 🔄 Sorting Feature
+Products sorted by price and name.
+
+![Sorting](./screenshots/Sorting filter.png)
 
 ---
 
 ### ⚠️ Low Stock Filter
+Shows products with stock less than 5.
+
+![Low Stock](./screenshots/Low stock check.png)
 
 ---
 
 ### ➕ Add Product
+Form used to add a new product.
+
+![Add Product](./screenshots/New Product.png)
 
 ---
 
 ### ✅ Product Added
+New product appears instantly in list.
+
+![Product Added](./screenshots/New Product Added.png)
 
 ---
+
+### 🗑️ Delete Product
+Product removed from dashboard.
+
+![Delete](./screenshots/Delete button.png)
+
+---
+
+### ✔️ After Deletion
+Updated product list after deletion.
+
+![Deleted](./screenshots/Product Successfully deleted.png)
+
 
 # ▶️ How to Run the Project
 
