@@ -76,6 +76,7 @@ function deleteProduct(id) {
   applyFilters();
   updateAnalytics();
 }
+alert("Product deleted successfully!");
 // ================== FILTER + SEARCH + SORT ==================
 function applyFilters() {
 
