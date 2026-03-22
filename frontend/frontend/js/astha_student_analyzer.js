@@ -47,3 +47,15 @@ const students = [
     attendance: 72 // low attendance fail
   }
 ];
+// -------- TOTAL MARKS --------
+// Function to calculate total marks of one student
+function getTotalMarks(student) {
+  let sum = 0;
+
+  for (let i = 0; i < student.marks.length; i++) {
+    sum += student.marks[i].score;
+  }
+
+  return sum;
+}
+
