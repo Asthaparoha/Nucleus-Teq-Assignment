@@ -64,3 +64,39 @@ function getAverageMarks(student) {
   const total = getTotalMarks(student);
   return total / student.marks.length;
 }
+// -------- PRINT TOTAL + AVERAGE --------
+console.log("---- STUDENT TOTAL & AVERAGE ----");
+
+students.forEach(stu => {
+  const total = getTotalMarks(stu);
+  const avg = getAverageMarks(stu);
+
+  console.log(stu.name + " Total Marks: " + total);
+  console.log(stu.name + " Average: " + avg.toFixed(1));
+});
+// -------- SUBJECT-WISE HIGHEST --------
+// Loop through subjects and compare all students
+
+console.log("\n---- SUBJECT TOPPERS ----");
+
+const subjects = students[0].marks.map(m => m.subject);
+
+for (let i = 0; i < subjects.length; i++) {
+  let highest = 0;
+  let topper = "";
+
+  for (let j = 0; j < students.length; j++) {
+    const stu = students[j];
+
+    for (let k = 0; k < stu.marks.length; k++) {
+      if (stu.marks[k].subject === subjects[i]) {
+        if (stu.marks[k].score > highest) {
+          highest = stu.marks[k].score;
+          topper = stu.name;
+        }
+      }
+    }
+  }
+
+  console.log("Highest in " + subjects[i] + ": " + topper + " (" + highest + ")");
+}
