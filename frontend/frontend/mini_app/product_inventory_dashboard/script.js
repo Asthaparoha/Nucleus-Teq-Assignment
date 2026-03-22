@@ -80,4 +80,36 @@ if (sort === "za") filtered.sort((a, b) => b.name.localeCompare(a.name));
 
 renderProducts(filtered);
 }
+// ================== ANALYTICS ==================
+function updateAnalytics() {
+
+const total = products.length;
+
+const totalValue = products.reduce((sum, p) => {
+return sum + (p.price * p.stock);
+}, 0);
+
+const outOfStock = products.filter(p => p.stock === 0).length;
+
+document.getElementById("totalProducts").textContent = total;
+document.getElementById("totalValue").textContent = totalValue;
+document.getElementById("outOfStock").textContent = outOfStock;
+}
+
+// ================== CATEGORY DROPDOWN ==================
+function populateCategories() {
+
+const select = document.getElementById("categorySelect");
+select.innerHTML = `<option value="all">All Categories</option>`;
+
+const categories = [...new Set(products.map(p => p.category))];
+
+categories.forEach(cat => {
+const option = document.createElement("option");
+option.value = cat;
+option.textContent = cat;
+select.appendChild(option);
+});
+}
+
 
