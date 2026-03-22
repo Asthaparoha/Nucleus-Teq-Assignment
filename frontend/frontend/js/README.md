@@ -1,64 +1,86 @@
 # Student Performance Analyzer
 
-This project is a console-based JavaScript program that analyzes student performance using basic programming concepts like arrays, objects, loops, and functions.
+This project is a console-based JavaScript program that analyzes student performance using arrays, objects, loops, and functions.
 
-The goal of this assignment was to understand how data can be processed and analyzed using pure JavaScript without any UI or DOM manipulation.
+The goal is to process and evaluate student data using pure JavaScript logic without any DOM or UI.
 
 ---
 
 ## 📌 Features Implemented
 
-- Calculated total marks for each student
-- Calculated average marks
-- Found subject-wise highest scores
-- Calculated subject-wise averages
-- Identified the class topper
-- Implemented grade system (A, B, C, Fail)
-- Handled fail conditions:
-  - Subject score ≤ 40
-  - Attendance < 75%
-  - 
-## 📊 Output Screenshots
-
-### 🧮 1. Total Marks & Average
-This shows total and average calculation for each student.
-
-![Image1](frontend/screenshots/image1.png)
+- Total marks calculation
+- Average marks calculation
+- Subject-wise highest score
+- Subject-wise average calculation
+- Class topper identification
+- Grade logic (A, B, C, Fail)
+- Fail conditions (low marks and attendance)
 
 ---
 
-### 📈 2. Continued Output (Totals & Averages)
-Additional output verification.
+## 📊 Output Screenshots
 
-![Image2](frontend/screenshots/image2.png)
+### 🧮 1. Total Marks & Average
+![Image1](screenshots/image1.png)
+
+---
+
+### 📈 2. Continued Output
+![Image2](screenshots/image2.png)
 
 ---
 
 ### 🏆 3. Subject-wise Toppers
-Displays highest scorer in each subject.
-
-![Image3](frontend/screenshots/image3.png)
+![Image3](screenshots/image3.png)
 
 ---
 
 ### 📊 4. Subject-wise Averages
-Shows average marks per subject.
-
-![Image4](frontend/screenshots/image4.png)
+![Image4](screenshots/image4.png)
 
 ---
 
 ### 🥇 5. Class Topper
-Identifies the student with highest total marks.
-
-![Image5](frontend/screenshots/image5.png)
+![Image5](screenshots/image5.png)
 
 ---
 
 ### 🎓 6. Grades & Fail Conditions
-Final grading with fail logic (attendance + subject).
+![Image6](screenshots/image6.png)
 
-![Image6](frontend/screenshots/image6.png)
+---
+
+## 🧠 Explanation of Logic
+
+- Used array of objects to represent student data
+- Used loops to calculate totals and averages
+- Nested loops for subject-wise comparisons
+- Functions used for modular and readable code
+- Conditions used for grading and fail logic
+
+---
+
+## ⚙️ How to Run
+
+1. Open browser
+2. Open Console (Inspect → Console)
+3. Paste the JavaScript file
+4. Press Enter
+5. View output using console.log()
+
+---
+
+## 📁 Folder Structure
+frontend/frontend/js/
+├── astha_student_analyzer.js
+├── README.md
+└── screenshots/
+├── image1.png
+├── image2.png
+├── image3.png
+├── image4.png
+├── image5.png
+└── image6.png
 ## 🧠 Logic Explanation
 
 - Used an **array of objects** to store student data.
@@ -104,23 +126,6 @@ Riya Grade: Fail (Low Attendance)
 3. Paste JavaScript code
 4. Press Enter
 5. View output in console
-
----
-
-## 📁 Folder Structure
-
-
-frontend/
-├── js/
-│ └── astha_student_analyzer.js
-├── screenshots/
-│ ├── image1.png
-│ ├── image2.png
-│ ├── image3.png
-│ ├── image4.png
-│ ├── image5.png
-│ └── image6.png
-
 
 ---
 
