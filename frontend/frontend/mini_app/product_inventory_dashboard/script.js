@@ -45,12 +45,17 @@ function renderProducts(data) {
     card.className = "product-card";
 
     card.innerHTML = `
-      <h3>${p.name}</h3>
-      <p>Price: ₹${p.price}</p>
-      <p>Stock: ${p.stock}</p>
-      <p>${p.category}</p>
-    `;
+    <h3>${p.name}</h3>
+    <p>Price: ₹${p.price}</p>
+    <p class="${p.stock < 5 ? "low-stock" : ""}">
+      Stock: ${p.stock}
+    </p>
+    <p>Category: ${p.category}</p>
 
+    <button onclick="deleteProduct(${p.id})" class="delete-btn">
+      🗑️ Delete
+    </button>
+`  ;
     productList.appendChild(card);
   });
 }
