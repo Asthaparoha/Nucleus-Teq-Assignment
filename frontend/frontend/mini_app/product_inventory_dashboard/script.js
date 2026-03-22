@@ -16,6 +16,7 @@ resolve(products);
 }, 1500);
 });
 }
+
 const categoryCount = {};
 
 products.forEach(p => {
