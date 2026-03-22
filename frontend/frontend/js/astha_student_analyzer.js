@@ -135,4 +135,35 @@ for (let i = 0; i < students.length; i++) {
 }
 
 console.log("\nClass Topper: " + classTopper + " with " + highestTotal + " marks");
+// -------- GRADE + FAIL LOGIC --------
+
+console.log("\n---- GRADES ----");
+
+function getGrade(student) {
+  const avg = getAverageMarks(student);
+
+  // Check fail conditions
+  let failedSubject = null;
+
+  for (let i = 0; i < student.marks.length; i++) {
+    if (student.marks[i].score <= 40) {
+      failedSubject = student.marks[i].subject;
+    }
+  }
+
+  if (student.attendance < 75) {
+    return "Fail (Low Attendance)";
+  }
+
+  if (failedSubject) {
+    return "Fail (Failed in " + failedSubject + ")";
+  }
+
+  // Grade calculation
+  if (avg >= 85) return "A";
+  if (avg >= 70) return "B";
+  if (avg >= 50) return "C";
+
+  return "Fail";
+}
 
