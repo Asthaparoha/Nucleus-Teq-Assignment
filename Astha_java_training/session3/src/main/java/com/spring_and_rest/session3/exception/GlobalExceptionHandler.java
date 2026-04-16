@@ -1,5 +1,5 @@
 package com.spring_and_rest.session3.exception;
-// Global exception handler for API errors
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
