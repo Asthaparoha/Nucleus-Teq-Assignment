@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.astha.todoapp.dto.TodoDTO;
 import com.astha.todoapp.entity.Todo;
 import com.astha.todoapp.entity.TodoStatus;
+import com.astha.todoapp.exception.ResourceNotFoundException;
 import com.astha.todoapp.repository.TodoRepository;
 import com.astha.todoapp.service.TodoService;
 
@@ -46,7 +47,7 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public TodoDTO getTodoById(Long id) {
         Todo todo = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Todo not found"));
+               .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id: " + id));
 
         return mapToDTO(todo);
     }
@@ -54,7 +55,7 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public void updateTodo(Long id, TodoDTO dto) {
         Todo todo = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Todo not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id: " + id));
 
         if (dto.getTitle() != null) {
             todo.setTitle(dto.getTitle());
