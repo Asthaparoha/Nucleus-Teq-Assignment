@@ -1,7 +1,8 @@
 package com.astha.todoapp.controller;
-
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,22 +22,26 @@ import jakarta.validation.Valid;
 public class TodoController {
 
     private final TodoService service;
-
+    private static final Logger logger = LoggerFactory.getLogger(TodoController.class);
     public TodoController(TodoService service) {
         this.service = service;
     }
 
     // 1. Create TODO
-    @PostMapping
+
+@PostMapping
 public TodoDTO create(@Valid @RequestBody TodoDTO dto) {
+   logger.info("Creating new TODO with title: {}", dto.getTitle());
     service.createTodo(dto);
     return dto;
 }
+
     // 2. Get all TODOs
     @GetMapping
     public List<TodoDTO> getAll() {
+        logger.info("Fetching all TODOs");
         return service.getAllTodos();
-    }
+}
 
     // 3. Get TODO by ID
     @GetMapping("/{id}")

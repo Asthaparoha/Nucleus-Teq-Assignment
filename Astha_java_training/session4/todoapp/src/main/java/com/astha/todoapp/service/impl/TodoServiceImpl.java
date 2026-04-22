@@ -4,26 +4,36 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.astha.todoapp.dto.TodoDTO;
 import com.astha.todoapp.entity.Todo;
 import com.astha.todoapp.entity.TodoStatus;
-import com.astha.todoapp.exception.ResourceNotFoundException;
 import com.astha.todoapp.repository.TodoRepository;
+import com.astha.todoapp.service.NotificationServiceClient;
 import com.astha.todoapp.service.TodoService;
 
 @Service
 public class TodoServiceImpl implements TodoService {
 
-    private final TodoRepository repository;
+    private static final Logger logger = LoggerFactory.getLogger(TodoServiceImpl.class);
 
-    public TodoServiceImpl(TodoRepository repository) {
+    private final TodoRepository repository;
+    private final NotificationServiceClient notificationService;
+
+    // ✅ Constructor Injection
+    public TodoServiceImpl(TodoRepository repository, NotificationServiceClient notificationService) {
         this.repository = repository;
+        this.notificationService = notificationService;
     }
 
     @Override
     public void createTodo(TodoDTO dto) {
+
+        logger.info("Creating TODO in service layer");
+
         TodoStatus status = dto.getStatus() != null ? dto.getStatus() : TodoStatus.PENDING;
 
         Todo todo = new Todo(
@@ -34,10 +44,17 @@ public class TodoServiceImpl implements TodoService {
         );
 
         repository.save(todo);
+
+        // ✅ Dummy service call
+        notificationService.sendNotification("New TODO created: " + dto.getTitle());
+
+        logger.info("TODO created successfully");
     }
 
     @Override
     public List<TodoDTO> getAllTodos() {
+        logger.info("Fetching all TODOs");
+
         return repository.findAll()
                 .stream()
                 .map(this::mapToDTO)
@@ -46,16 +63,18 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public TodoDTO getTodoById(Long id) {
+
         Todo todo = repository.findById(id)
-               .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
 
         return mapToDTO(todo);
     }
 
     @Override
     public void updateTodo(Long id, TodoDTO dto) {
+
         Todo todo = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
 
         if (dto.getTitle() != null) {
             todo.setTitle(dto.getTitle());
@@ -67,18 +86,17 @@ public class TodoServiceImpl implements TodoService {
 
         if (dto.getStatus() != null) {
 
-    TodoStatus currentStatus = todo.getStatus();
-    TodoStatus newStatus = dto.getStatus();
+            TodoStatus currentStatus = todo.getStatus();
+            TodoStatus newStatus = dto.getStatus();
 
-    // allowed transitions
-    if ((currentStatus == TodoStatus.PENDING && newStatus == TodoStatus.COMPLETED) ||
-        (currentStatus == TodoStatus.COMPLETED && newStatus == TodoStatus.PENDING)) {
+            if ((currentStatus == TodoStatus.PENDING && newStatus == TodoStatus.COMPLETED) ||
+                (currentStatus == TodoStatus.COMPLETED && newStatus == TodoStatus.PENDING)) {
 
-        todo.setStatus(newStatus);
-    } else {
-        throw new RuntimeException("Invalid status transition");
-    }
-}
+                todo.setStatus(newStatus);
+            } else {
+                throw new RuntimeException("Invalid status transition");
+            }
+        }
 
         repository.save(todo);
     }
