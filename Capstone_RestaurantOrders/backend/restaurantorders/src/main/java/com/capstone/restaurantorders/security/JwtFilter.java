@@ -2,12 +2,10 @@ package com.capstone.restaurantorders.security;
 
 import com.capstone.restaurantorders.entity.User;
 import com.capstone.restaurantorders.repository.UserRepository;
-import com.capstone.restaurantorders.security.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,11 +18,13 @@ import java.util.List;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    public JwtFilter(JwtUtil jwtUtil, UserRepository userRepository) {
+        this.jwtUtil = jwtUtil;
+        this.userRepository = userRepository;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -34,6 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
+        // Skip public endpoints
         if (path.equals("/api/users/login") || path.equals("/api/users/register")) {
             filterChain.doFilter(request, response);
             return;
@@ -41,6 +42,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
+        // No token → allow request (public APIs work)
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -48,26 +50,39 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String token = authHeader.substring(7);
 
+        if (token.isEmpty() || !token.contains(".")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         try {
+
+            //  Validate token before parsing
+            if (!jwtUtil.isTokenValid(token)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
             String email = jwtUtil.extractEmail(token);
 
-            // fetch user from DB
-            User user = userRepository.findByEmail(email)
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+            //  Avoid duplicate authentication
+            if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            // set role-based authentication
-            UsernamePasswordAuthenticationToken authToken =
-                    new UsernamePasswordAuthenticationToken(
-                            email,
-                            null,
-                            List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()))
-                    );
-            System.out.println("USER ROLE FROM DB: " + user.getRole());
-            System.out.println("AUTHORITY SET: ROLE_" + user.getRole());
-            SecurityContextHolder.getContext().setAuthentication(authToken);
+                User user = userRepository.findByEmail(email)
+                        .orElseThrow(() -> new RuntimeException("User not found"));
+
+                UsernamePasswordAuthenticationToken authToken =
+                        new UsernamePasswordAuthenticationToken(
+                                email,
+                                null,
+                                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()))
+                        );
+
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("JWT processing failed: " + e.getMessage());
         }
 
         filterChain.doFilter(request, response);

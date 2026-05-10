@@ -106,7 +106,9 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void clearCart(Long userId) {
-
+        Cart cart = cartRepository.findByUserId(userId).orElseThrow();
+        List<CartItem> items = cartItemRepository.findByCartId(cart.getId());
+        cartItemRepository.deleteAll(items);
     }
 
     @Override

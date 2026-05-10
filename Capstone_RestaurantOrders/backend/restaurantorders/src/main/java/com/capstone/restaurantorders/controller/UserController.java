@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -33,13 +34,9 @@ public class UserController {
     public LoginResponseDTO login(@RequestBody LoginRequestDTO request) {
         return userService.loginUser(request);
     }
+
     @GetMapping("/{id}")
     public UserResponseDTO getUser(@PathVariable Long id) {
         return userService.getUserById(id);
-    }
-    // ================= TEST =================
-    @GetMapping("/test")
-    public String testAPI() {
-        return "Protected API working";
     }
 }
