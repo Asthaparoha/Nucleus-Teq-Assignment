@@ -12,7 +12,6 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    // 🔐 Move this to application.properties in real apps
     private final String SECRET = "mysecretkeymysecretkeymysecretkey";
 
     private Key getSigningKey() {
