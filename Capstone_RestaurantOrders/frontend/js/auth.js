@@ -17,14 +17,14 @@ const text = await res.text();
 
 if(!res.ok){
 console.error("Error:", text);
-alert("Login failed ❌");
+alert("Login failed ");
 return;
 }
 
 const data = text ? JSON.parse(text) : {};
 
 if(!data.token){
-alert("Invalid response ❌");
+alert("Invalid response ");
 return;
 }
 
@@ -41,7 +41,7 @@ window.location.href="home.html";
 })
 .catch(err=>{
 console.error(err);
-alert("Login error ❌");
+alert("Login error");
 });
 }
 
@@ -64,7 +64,7 @@ const role = document.getElementById("role").value;
 //  validation
 if(!firstName || !lastName || !email || !password || !phoneNumber ||
    !street || !city || !state || !zipCode){
-    alert("Please fill all fields ❌");
+    alert("Please fill all fields");
     return;
 }
 
@@ -101,12 +101,12 @@ return text ? JSON.parse(text) : {};
 })
 .then(data=>{
 
-alert("Account created successfully 🎉");
+alert("Account created successfully ");
 window.location.href = "login.html";
 
 })
 .catch(err=>{
 console.error(err);
-alert("Email already exists ❌");
+alert("Email already exists ");
 });
 }
