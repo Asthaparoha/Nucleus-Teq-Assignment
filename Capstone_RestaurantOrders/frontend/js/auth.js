@@ -22,17 +22,10 @@ password
 
 let data;
 
-<<<<<<< HEAD
 if(!res.ok){
 console.error("Error:", text);
 alert("Login failed ");
 return;
-=======
-try{
-    data = await res.json();
-}catch{
-    data = {};
->>>>>>> c3f4998 (Added validations and improved error handling)
 }
 
 if(!res.ok){
@@ -41,11 +34,7 @@ if(!res.ok){
 }
 
 if(!data.token){
-<<<<<<< HEAD
 alert("Invalid response ");
-=======
-alert("Invalid response");
->>>>>>> c3f4998 (Added validations and improved error handling)
 return;
 }
 
@@ -62,11 +51,7 @@ window.location.href="home.html";
 })
 .catch(err=>{
 console.error(err);
-<<<<<<< HEAD
 alert("Login error");
-=======
-alert("Login failed");
->>>>>>> c3f4998 (Added validations and improved error handling)
 });
 }
 
@@ -90,44 +75,6 @@ const role = document.getElementById("role").value;
 if(!firstName || !lastName || !email || !password || !phoneNumber ||
    !street || !city || !state || !zipCode){
     alert("Please fill all fields");
-<<<<<<< HEAD
-=======
-    return;
-}
-
-if(!/^[A-Za-z]+$/.test(firstName)){
-    alert("First name should contain only alphabets");
-    return;
-}
-
-if(!/^[A-Za-z]+$/.test(lastName)){
-    alert("Last name should contain only alphabets");
-    return;
-}
-
-if(!/^[0-9]{10}$/.test(phoneNumber)){
-    alert("Phone number must be exactly 10 digits");
-    return;
-}
-
-if(password.length < 6){
-    alert("Password must be at least 6 characters");
-    return;
-}
-
-if(!/^[A-Za-z ]+$/.test(city)){
-    alert("City should contain only alphabets");
-    return;
-}
-
-if(!/^[A-Za-z ]+$/.test(state)){
-    alert("State should contain only alphabets");
-    return;
-}
-
-if(!/^[0-9]{6}$/.test(zipCode)){
-    alert("Zip code must be exactly 6 digits");
->>>>>>> c3f4998 (Added validations and improved error handling)
     return;
 }
 
@@ -179,20 +126,12 @@ return data;
 })
 .then(data=>{
 
-<<<<<<< HEAD
 alert("Account created successfully ");
-=======
-alert("Account created successfully");
->>>>>>> c3f4998 (Added validations and improved error handling)
 window.location.href = "login.html";
 
 })
 .catch(err=>{
 console.error(err);
-<<<<<<< HEAD
 alert("Email already exists ");
-=======
-alert(err.message);
->>>>>>> c3f4998 (Added validations and improved error handling)
 });
 }
