@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cart - FoodieFlow</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">FoodieFlow 🍔</div>
+  <div class="nav-actions">
+    <button onclick="go('home.html')">Home</button>
+    <button onclick="go('orders.html')">Orders</button>
+    <button onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="home-hero">
+  <h1>Your Cart</h1>
+  <p>Review your items and place order</p>
+</div>
+
+<!-- WALLET -->
+<div class="wallet-box" id="wallet"></div>
+
+<!-- MAIN LAYOUT -->
+<div class="cart-layout">
+
+    <!-- LEFT: CART ITEMS -->
+    <div class="cart-section" id="cartList"></div>
+
+    <!-- RIGHT: SUMMARY -->
+    <div class="summary-section">
+
+        <h3>Total</h3>
+        <h2 id="totalAmount"></h2>
+
+        <h3>📍 Delivery Address</h3>
+
+        <input id="street" placeholder="Street">
+        <input id="city" placeholder="City">
+        <input id="state" placeholder="State">
+        <input id="zip" placeholder="Zip Code">
+
+        <button class="primary" onclick="placeOrder()">Place Order 🚀</button>
+
+    </div>
+
+</div>
+
+<script>
+function go(p){window.location.href=p;}
+</script>
+
+<script src="js/cart.js"></script>
+
+</body>
+</html>

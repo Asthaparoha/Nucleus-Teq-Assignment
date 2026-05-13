@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Manage Categories - FoodieFlow</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="navbar">
+  <div class="logo">FoodieFlow 🍔</div>
+  <div class="nav-actions">
+    <button onclick="go('owner.html')">Dashboard</button>
+  </div>
+</div>
+
+<div class="home-hero">
+  <h1>Manage Categories</h1>
+  <p>Create and organize food categories</p>
+</div>
+
+<div class="owner-layout">
+
+  <!-- LEFT FORM -->
+  <div class="form-section">
+
+    <h3 id="formTitle">Add Category</h3>
+
+    <select id="restaurantSelect" onchange="loadCategories()">
+        <option value="">Select Restaurant</option>
+    </select>
+
+    <input id="name" placeholder="Category Name">
+
+    <button class="primary" onclick="saveCategory()">Save</button>
+
+  </div>
+
+  <!-- RIGHT LIST -->
+  <div class="list-section" id="list"></div>
+
+</div>
+
+<script>
+function go(p){window.location.href=p;}
+</script>
+
+<script src="js/owner-categories.js"></script>
+
+</body>
+</html>

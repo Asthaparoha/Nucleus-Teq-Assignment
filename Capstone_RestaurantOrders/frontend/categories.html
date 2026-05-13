@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Categories - FoodieFlow</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">FoodieFlow 🍔</div>
+  <div class="nav-actions">
+    <button onclick="go('home.html')">Home</button>
+    <button onclick="go('cart.html')">Cart</button>
+    <button onclick="go('orders.html')">Orders</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="home-hero">
+  <h1>Select Category</h1>
+  <p>Choose what you’re craving today</p>
+</div>
+
+<!-- CATEGORY LIST -->
+<div class="container" id="categoryList"></div>
+
+<script>
+function go(p){window.location.href=p;}
+</script>
+
+<script src="js/categories.js"></script>
+
+</body>
+</html>

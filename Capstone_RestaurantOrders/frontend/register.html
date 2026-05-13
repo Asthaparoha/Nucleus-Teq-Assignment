@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Create Account - FoodieFlow</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="auth-container">
+
+  <!-- LEFT SIDE IMAGE -->
+  <div class="left">
+    <h1>Join FoodieFlow 🍔</h1>
+    <p>Discover restaurants, order your favorite meals and enjoy seamless delivery.</p>
+  </div>
+
+  <!-- RIGHT SIDE FORM -->
+  <div class="right">
+    <div class="auth-box">
+
+      <h3>Create Account</h3>
+
+      <input type="text" id="firstName" placeholder="First Name">
+      <input type="text" id="lastName" placeholder="Last Name">
+      <input type="email" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
+      <input type="text" id="phoneNumber" placeholder="Phone Number">
+
+      <input type="text" id="street" placeholder="Street">
+      <input type="text" id="city" placeholder="City">
+      <input type="text" id="state" placeholder="State">
+      <input type="text" id="zipCode" placeholder="Zip Code">
+
+      <!-- ROLE DROPDOWN -->
+      <select id="role" class="role-select">
+        <option value="USER">Register as User</option>
+        <option value="RESTAURANT_OWNER">Register as Owner</option>
+      </select>
+
+      <button class="primary" onclick="register()">Register</button>
+
+      <p style="margin-top:15px;">
+        Already have an account?
+        <span onclick="goLogin()" style="color:#ff512f; cursor:pointer;">
+          Login
+        </span>
+      </p>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+function goLogin(){
+  window.location.href="login.html";
+}
+</script>
+
+<script src="js/auth.js"></script>
+
+</body>
+</html>

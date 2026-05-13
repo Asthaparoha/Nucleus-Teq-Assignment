@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="css/style.css">
+
+<div class="navbar">
+  <div class="logo">DineFlow</div>
+  <div>
+    <button onclick="goLogin()">Login</button>
+    <button class="primary" onclick="goRegister()">Register</button>
+  </div>
+</div>
+
+<div class="hero">
+  <div>
+    <h1>Food ordering made simple and quick</h1>
+    <p>Explore restaurants, order meals, manage everything</p>
+    <button class="primary" onclick="goHome()">Explore Restaurants</button>
+  </div>
+</div>
+
+<script>
+function goLogin(){window.location.href="login.html";}
+function goRegister(){window.location.href="register.html";}
+function goHome(){window.location.href="home.html";}
+</script>

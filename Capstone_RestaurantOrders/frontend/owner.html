@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Owner Dashboard - FoodieFlow</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">FoodieFlow 🍔</div>
+  <div class="nav-actions">
+    <button onclick="go('home.html')">User View</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="home-hero">
+  <h1>Owner Dashboard</h1>
+  <p>Manage your restaurants, menu and orders</p>
+</div>
+
+<!-- DASHBOARD GRID -->
+<div class="container">
+
+  <div class="dashboard-card" onclick="go('owner-restaurants.html')">
+    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800">
+    <div class="dashboard-content">
+      🏪 Restaurants
+      <p>Manage your restaurants</p>
+    </div>
+  </div>
+
+  <div class="dashboard-card" onclick="go('owner-categories.html')">
+    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800">
+    <div class="dashboard-content">
+      📂 Categories
+      <p>Organize food categories</p>
+    </div>
+  </div>
+
+  <div class="dashboard-card" onclick="go('owner-menu.html')">
+    <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=800">
+    <div class="dashboard-content">
+      🍕 Menu
+      <p>Add & manage menu items</p>
+    </div>
+  </div>
+
+  <div class="dashboard-card" onclick="go('owner-orders.html')">
+    <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800">
+    <div class="dashboard-content">
+      📦 Orders
+      <p>Track and manage orders</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function go(page){
+    window.location.href = page;
+}
+</script>
+
+</body>
+</html>

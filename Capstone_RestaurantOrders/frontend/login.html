@@ -1,0 +1,82 @@
+<<link rel="stylesheet" href="css/style.css">
+
+<div class="auth-container">
+
+<div class="left">
+  <h1>Login to continue your ordering journey</h1>
+  <p>Order food, track orders, manage everything easily.</p>
+</div>
+
+<div class="right">
+  <div class="auth-box">
+
+    <h3>Login</h3>
+
+    <input id="email" placeholder="Email address">
+    <input id="password" type="password" placeholder="Password">
+
+    <!-- BUTTON -->
+    <button class="primary" onclick="login()">Login</button>
+
+    <p style="margin-top:15px;">
+      New here?
+      <span onclick="goRegister()" style="color:#ff512f; cursor:pointer;">
+        Create account
+      </span>
+    </p>
+
+  </div>
+</div>
+
+</div>
+
+<!-- SCRIPT MUST BE HERE -->
+<script>
+
+function goRegister(){
+  window.location.href="register.html";
+}
+
+function login(){
+
+fetch("http://localhost:8082/api/users/login",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+email:document.getElementById("email").value,
+password:document.getElementById("password").value
+})
+})
+.then(async res => {
+
+  if(!res.ok){
+    alert("Invalid email or password ❌");
+    return;
+  }
+
+  return res.json();
+})
+.then(data=>{
+  if(!data) return;
+
+let role = data.role || "";
+role = role.toUpperCase();
+
+localStorage.setItem("token", data.token);
+localStorage.setItem("userId", data.id);
+localStorage.setItem("role", role);
+
+if(role === "OWNER" || role === "RESTAURANT_OWNER"){
+    window.location.href = "owner.html";
+} else {
+    window.location.href = "home.html";
+}
+
+})
+.catch(err=>{
+console.error(err);
+alert("Login failed ❌");
+});
+}
+
+</script>

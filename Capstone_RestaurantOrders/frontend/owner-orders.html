@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Manage Orders - FoodieFlow</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="navbar">
+  <div class="logo">FoodieFlow 🍔</div>
+  <div class="nav-actions">
+    <button onclick="go('owner.html')">Dashboard</button>
+  </div>
+</div>
+
+<div class="home-hero">
+  <h1>Manage Orders</h1>
+  <p>Accept, reject or complete orders</p>
+</div>
+
+<div class="container" id="ordersList"></div>
+
+<script>
+function go(p){window.location.href=p;}
+</script>
+
+<script src="js/owner-orders.js"></script>
+
+</body>
+</html>

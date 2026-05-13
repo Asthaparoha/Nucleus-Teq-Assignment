@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu - FoodieFlow</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">FoodieFlow 🍔</div>
+  <div class="nav-actions">
+    <button onclick="go('home.html')">Home</button>
+    <button onclick="go('cart.html')">Cart</button>
+    <button onclick="go('orders.html')">Orders</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="home-hero">
+  <h1>Explore Menu</h1>
+  <p>Choose your favorite dishes</p>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="menu-layout">
+
+    <!-- LEFT: MENU -->
+    <div class="menu-section" id="menuList"></div>
+
+    <!-- RIGHT: CART -->
+    <div class="cart-section">
+        <h3>🛒 Your Cart</h3>
+        <div id="cartItems"></div>
+        <h4 id="cartTotal"></h4>
+        <button class="primary" onclick="goToCart()">Checkout</button>
+    </div>
+
+</div>
+
+<script>
+function go(p){window.location.href=p;}
+</script>
+
+<script src="js/menu.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Manage Restaurants - FoodieFlow</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo">FoodieFlow 🍔</div>
+  <div class="nav-actions">
+    <button onclick="go('owner.html')">Dashboard</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="home-hero">
+  <h1>Manage Restaurants</h1>
+  <p>Add, update or delete your restaurants</p>
+</div>
+
+<!-- MAIN -->
+<div class="owner-layout">
+
+  <!-- LEFT FORM -->
+  <div class="form-section">
+
+    <h3 id="formTitle">Add Restaurant</h3>
+
+    <input id="name" placeholder="Restaurant Name">
+    <input id="description" placeholder="Description">
+    <input id="location" placeholder="Location">
+
+    <button class="primary" onclick="addRestaurant()">Save</button>
+
+  </div>
+
+  <!-- RIGHT LIST -->
+  <div class="list-section" id="list"></div>
+
+</div>
+
+<script>
+function go(p){window.location.href=p;}
+</script>
+
+<script src="js/owner-restaurants.js"></script>
+
+</body>
+</html>

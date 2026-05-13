@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="css/style.css">
+<script src="js/home.js"></script>
+
+<div class="navbar">
+  <div class="logo">FoodieFlow 🍔</div>
+  <div class="nav-actions">
+    <button onclick="go('cart.html')">Cart</button>
+    <button onclick="go('orders.html')">Orders</button>
+    <button onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="home-hero">
+  <h1>Discover Great Food Near You</h1>
+  <p>Order from top restaurants with fast delivery</p>
+</div>
+
+<!-- WALLET -->
+<div class="wallet-box" id="wallet"></div>
+
+<!-- RESTAURANTS -->
+<div class="container" id="restaurants"></div>
+
+<script>
+function go(p){window.location.href=p;}
+</script>
