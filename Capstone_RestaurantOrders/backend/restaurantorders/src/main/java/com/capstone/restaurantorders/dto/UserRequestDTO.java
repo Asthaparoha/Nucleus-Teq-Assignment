@@ -2,33 +2,62 @@ package com.capstone.restaurantorders.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public class UserRequestDTO {
 
     @NotBlank(message = "First name is required")
+    @Pattern(
+            regexp = "^[A-Za-z]+$",
+            message = "First name should contain only alphabets"
+    )
     private String firstName;
 
     @NotBlank(message = "Last name is required")
+    @Pattern(
+            regexp = "^[A-Za-z]+$",
+            message = "Last name should contain only alphabets"
+    )
     private String lastName;
 
     @Email(message = "Invalid email format")
+    @NotBlank(message = "Email is required")
     private String email;
 
     @NotBlank(message = "Password is required")
+    @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
 
+    @NotBlank(message = "Phone number is required")
+    @Pattern(
+            regexp = "^[0-9]{10}$",
+            message = "Phone number must be exactly 10 digits"
+    )
     private String phoneNumber;
 
     @NotBlank(message = "Street is required")
     private String street;
 
     @NotBlank(message = "City is required")
+    @Pattern(
+            regexp = "^[A-Za-z ]+$",
+            message = "City should contain only alphabets"
+    )
     private String city;
 
     @NotBlank(message = "State is required")
+    @Pattern(
+            regexp = "^[A-Za-z ]+$",
+            message = "State should contain only alphabets"
+    )
     private String state;
 
     @NotBlank(message = "Zip code is required")
+    @Pattern(
+            regexp = "^[0-9]{6}$",
+            message = "Zip code must be 6 digits"
+    )
     private String zipCode;
 
     @NotBlank(message = "Role is required")

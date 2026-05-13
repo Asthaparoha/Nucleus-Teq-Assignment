@@ -1,10 +1,22 @@
 let editId = null;
 
+
+
 window.onload = function () {
+
+    const token = localStorage.getItem("token");
+
+    if(!token){
+        alert("Please login first");
+        window.location.href = "login.html";
+        return;
+    }
+
     loadRestaurants();
 };
 
-// LOAD
+
+
 function loadRestaurants() {
 
     const token = localStorage.getItem("token");
@@ -12,30 +24,51 @@ function loadRestaurants() {
     fetch("http://localhost:8082/api/restaurants", {
         headers: { Authorization: "Bearer " + token }
     })
-    .then(res => res.json())
-    .then(data => display(data));
+    .then(async res => {
+
+        if(!res.ok){
+            throw new Error("Failed to load restaurants");
+        }
+
+        return res.json();
+    })
+    .then(data => display(data))
+    .catch(err => {
+        console.error(err);
+        alert(err.message);
+    });
 }
 
-// DISPLAY
+
+
 function display(list) {
 
     const div = document.getElementById("list");
     div.innerHTML = "";
 
+    if(!list || list.length === 0){
+        div.innerHTML = "<p>No restaurants found</p>";
+        return;
+    }
+
     list.forEach(r => {
 
-        let img = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800";
+        let img =
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800";
 
         const name = r.name.toLowerCase();
 
         if(name.includes("pizza"))
-            img = "https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=800";
+            img =
+            "https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=800";
 
         else if(name.includes("burger"))
-            img = "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800";
+            img =
+            "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800";
 
         else if(name.includes("kfc") || name.includes("chicken"))
-            img = "https://images.unsplash.com/photo-1562967916-eb82221dfb92?w=800";
+            img =
+            "https://images.unsplash.com/photo-1562967916-eb82221dfb92?w=800";
 
         div.innerHTML += `
             <div class="rest-card">
@@ -44,14 +77,25 @@ function display(list) {
                      onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800'">
 
                 <div class="rest-content">
+
                     <h3>${r.name}</h3>
+
                     <p>${r.description}</p>
+
                     <p>${r.location}</p>
 
                     <div class="rest-actions">
-                        <button onclick="setEdit(${r.id}, '${r.name}', '${r.description}', '${r.location}')">Edit</button>
-                        <button onclick="deleteRestaurant(${r.id})">Delete</button>
+
+                        <button onclick="setEdit(${r.id}, '${r.name}', '${r.description}', '${r.location}')">
+                            Edit
+                        </button>
+
+                        <button onclick="deleteRestaurant(${r.id})">
+                            Delete
+                        </button>
+
                     </div>
+
                 </div>
 
             </div>
@@ -59,7 +103,8 @@ function display(list) {
     });
 }
 
-// SET EDIT MODE
+
+
 function setEdit(id, name, description, location) {
 
     editId = id;
@@ -69,17 +114,38 @@ function setEdit(id, name, description, location) {
     document.getElementById("location").value = location;
 }
 
-// ADD / UPDATE (SAME FUNCTION)
+
+
 function addRestaurant() {
 
-    const name = document.getElementById("name").value;
-    const description = document.getElementById("description").value;
-    const location = document.getElementById("location").value;
+    const name =
+    document.getElementById("name").value.trim();
+
+    const description =
+    document.getElementById("description").value.trim();
+
+    const location =
+    document.getElementById("location").value.trim();
 
     const token = localStorage.getItem("token");
 
     if (!name || !description || !location) {
-        alert("Fill all fields ❌");
+        alert("Fill all fields");
+        return;
+    }
+
+    if(!/^[A-Za-z ]+$/.test(name)){
+        alert("Restaurant name should contain only alphabets");
+        return;
+    }
+
+    if(description.length < 5){
+        alert("Description must be at least 5 characters");
+        return;
+    }
+
+    if(!/^[A-Za-z0-9 ,.-]+$/.test(location)){
+        alert("Invalid location");
         return;
     }
 
@@ -101,12 +167,36 @@ function addRestaurant() {
             location
         })
     })
-    .then(res => {
-        if (!res.ok) throw new Error("Operation failed");
-        return res.json();
+    .then(async res => {
+
+        let data;
+
+        try{
+            data = await res.json();
+        }catch{
+            data = {};
+        }
+
+        if(!res.ok){
+
+            let errorMessage = "";
+
+            if(typeof data === "object"){
+                for(let key in data){
+                    errorMessage += data[key] + "\n";
+                }
+            }else{
+                errorMessage = "Operation failed";
+            }
+
+            throw new Error(errorMessage);
+        }
+
+        return data;
     })
     .then(() => {
-        alert(editId ? "Updated ✅" : "Added ✅");
+
+        alert(editId ? "Restaurant updated" : "Restaurant added");
 
         editId = null;
 
@@ -118,26 +208,51 @@ function addRestaurant() {
     })
     .catch(err => {
         console.error(err);
-        alert("Error ❌");
+        alert(err.message);
     });
 }
 
-// DELETE (WORKS ONLY FOR EMPTY RESTAURANTS)
+
+
 function deleteRestaurant(id) {
 
     const token = localStorage.getItem("token");
+
+    if(!id){
+        alert("Invalid restaurant");
+        return;
+    }
 
     fetch(`http://localhost:8082/api/restaurants/${id}`, {
         method: "DELETE",
         headers: { Authorization: "Bearer " + token }
     })
-    .then(res => {
-        if (!res.ok) throw new Error("Cannot delete (has dependencies)");
-        alert("Deleted ✅");
+    .then(async res => {
+
+        let message = "";
+
+        try{
+            message = await res.text();
+        }catch{
+            message = "Delete failed";
+        }
+
+        if (!res.ok){
+            throw new Error(message || "Cannot delete restaurant");
+        }
+
+        return message;
+    })
+    .then(() => {
+
+        alert("Restaurant deleted successfully");
+
         loadRestaurants();
     })
     .catch(err => {
+
         console.error(err);
-        alert("Delete blocked (has menu/category) ❌");
+
+        alert(err.message);
     });
 }

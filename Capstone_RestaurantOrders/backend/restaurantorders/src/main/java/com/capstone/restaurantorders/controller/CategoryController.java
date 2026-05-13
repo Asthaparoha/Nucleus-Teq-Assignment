@@ -33,6 +33,13 @@ public class CategoryController {
 
         return categoryService.getCategoriesByRestaurant(restaurantId);
     }
+    @PutMapping("/{id}")
+    public CategoryResponseDTO updateCategory(
+            @PathVariable Long id,
+            @RequestBody CategoryRequestDTO request) {
+
+        return categoryService.updateCategory(id, request);
+    }
     @DeleteMapping("/{id}")
     public String deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);

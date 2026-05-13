@@ -2,10 +2,13 @@ package com.capstone.restaurantorders.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 public class CategoryRequestDTO {
 
     @NotBlank(message = "Category name is required")
+    @Pattern(regexp = "^[A-Za-z ]+$",
+            message = "Category name should contain only alphabets")
     private String name;
 
     @NotNull(message = "Restaurant ID is required")

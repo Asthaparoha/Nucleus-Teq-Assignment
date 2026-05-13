@@ -12,6 +12,10 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
+<<<<<<< HEAD
+=======
+    // used for token signing
+>>>>>>> c3f4998 (Added validations and improved error handling)
     private final String SECRET = "mysecretkeymysecretkeymysecretkey";
 
     private Key getSigningKey() {

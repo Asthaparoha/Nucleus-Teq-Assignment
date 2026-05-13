@@ -3,7 +3,7 @@ window.onload = function(){
   const token = localStorage.getItem("token");
 
   if(!token){
-    alert("Please login first ❌");
+    alert("Please login first");
     window.location.href = "login.html";
     return;
   }
@@ -12,7 +12,8 @@ window.onload = function(){
   loadOrders();
 };
 
-//  LOAD ORDERS
+
+
 function loadOrders() {
 
     const userId = localStorage.getItem("userId");
@@ -23,15 +24,25 @@ function loadOrders() {
             "Authorization": "Bearer " + token
         }
     })
-    .then(res => res.json())
+    .then(async res => {
+
+        if(!res.ok){
+            throw new Error("Failed to load orders");
+        }
+
+        return res.json();
+    })
     .then(data => {
-        console.log("Orders:", data);
         displayOrders(data);
     })
-    .catch(err => console.error("Order fetch error:", err));
+    .catch(err => {
+        console.error(err);
+        alert(err.message);
+    });
 }
 
-//  DISPLAY ORDERS
+
+
 function displayOrders(orders) {
 
     const container = document.getElementById("ordersList");
@@ -52,8 +63,8 @@ function displayOrders(orders) {
         const canCancel =
             diffSeconds <= 30 && order.status === "PLACED";
 
-        //  image logic
-        let img = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800";
+        let img =
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800";
 
         container.innerHTML += `
             <div class="order-card">
@@ -62,16 +73,28 @@ function displayOrders(orders) {
                      onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800'">
 
                 <div class="order-content">
+
                     <h3>Order #${order.orderId}</h3>
+
                     <p>Total: ₹${order.totalAmount}</p>
-                    <p class="status ${order.status}">Status: ${order.status}</p>
-                    <p>Time: ${new Date(order.createdAt).toLocaleString()}</p>
+
+                    <p class="status ${order.status}">
+                        Status: ${order.status}
+                    </p>
+
+                    <p>
+                        Time:
+                        ${new Date(order.createdAt).toLocaleString()}
+                    </p>
 
                     ${
                         canCancel
-                        ? `<button onclick="cancelOrder(${order.orderId})">Cancel ❌</button>`
+                        ? `<button onclick="cancelOrder(${order.orderId})">
+                                Cancel
+                           </button>`
                         : ""
                     }
+
                 </div>
 
             </div>
@@ -79,10 +102,16 @@ function displayOrders(orders) {
     });
 }
 
-//  CANCEL ORDER
+
+
 function cancelOrder(orderId) {
 
     const token = localStorage.getItem("token");
+
+    if(!orderId){
+        alert("Invalid order");
+        return;
+    }
 
     fetch(`http://localhost:8082/api/orders/cancel/${orderId}`, {
         method: "DELETE",
@@ -90,22 +119,38 @@ function cancelOrder(orderId) {
             "Authorization": "Bearer " + token
         }
     })
-    .then(res => {
-        if (!res.ok) throw new Error("Cancel failed");
-        return res.text();
+    .then(async res => {
+
+        let message = "";
+
+        try{
+            message = await res.text();
+        }catch{
+            message = "Cancel failed";
+        }
+
+        if(!res.ok){
+            throw new Error(message || "Cancel failed");
+        }
+
+        return message;
     })
     .then(msg => {
-        alert(msg);
-        loadWallet();   
-        loadOrders();  
+
+        alert(msg || "Order cancelled successfully");
+
+        loadWallet();
+        loadOrders();
     })
     .catch(err => {
+
         console.error(err);
-        alert("Cancel failed ❌");
+        alert(err.message);
     });
 }
 
-//  WALLET
+
+
 function loadWallet() {
 
     const userId = localStorage.getItem("userId");
@@ -118,14 +163,28 @@ function loadWallet() {
             "Authorization": "Bearer " + token
         }
     })
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById("wallet").innerText =
-            "💰 Wallet: ₹" + data.walletBalance;
+    .then(async res => {
+
+        if(!res.ok){
+            throw new Error("Failed to load wallet");
+        }
+
+        return res.json();
     })
-    .catch(err => console.error("Wallet error:", err));
+    .then(data => {
+
+        document.getElementById("wallet").innerText =
+            "Wallet: ₹" + (data.walletBalance ?? 0);
+    })
+    .catch(err => {
+        console.error(err);
+    });
 }
+
+
+
 function logout(){
+
   localStorage.clear();
   window.location.href = "index.html";
 }

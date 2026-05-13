@@ -5,6 +5,7 @@ import com.capstone.restaurantorders.dto.CategoryResponseDTO;
 import com.capstone.restaurantorders.entity.Category;
 import com.capstone.restaurantorders.entity.Restaurant;
 import com.capstone.restaurantorders.repository.CategoryRepository;
+import com.capstone.restaurantorders.repository.MenuItemRepository;
 import com.capstone.restaurantorders.repository.RestaurantRepository;
 import com.capstone.restaurantorders.service.CategoryService;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final RestaurantRepository restaurantRepository;
+    private final MenuItemRepository menuItemRepository;
 
     public CategoryServiceImpl(CategoryRepository categoryRepository,
-                               RestaurantRepository restaurantRepository) {
+                               RestaurantRepository restaurantRepository,
+                               MenuItemRepository menuItemRepository) {
+
         this.categoryRepository = categoryRepository;
         this.restaurantRepository = restaurantRepository;
+        this.menuItemRepository = menuItemRepository;
     }
 
     @Override
@@ -54,9 +59,30 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
+        // CHECK: if category has menu items
+        if (menuItemRepository.existsByCategoryId(id)) {
+            throw new RuntimeException("Cannot delete category because menu items exist");
+        }
+
         categoryRepository.delete(category);
     }
+    @Override
+    public CategoryResponseDTO updateCategory(Long id, CategoryRequestDTO request) {
 
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
+        category.setName(request.getName());
+
+        Category updated = categoryRepository.save(category);
+
+        CategoryResponseDTO response = new CategoryResponseDTO();
+        response.setId(updated.getId());
+        response.setName(updated.getName());
+        response.setRestaurantId(updated.getRestaurant().getId());
+
+        return response;
+    }
     private CategoryResponseDTO mapToResponse(Category category) {
 
         CategoryResponseDTO response = new CategoryResponseDTO();

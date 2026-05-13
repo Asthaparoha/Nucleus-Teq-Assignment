@@ -3,6 +3,7 @@ package com.capstone.restaurantorders.controller;
 import com.capstone.restaurantorders.dto.MenuItemRequestDTO;
 import com.capstone.restaurantorders.dto.MenuItemResponseDTO;
 import com.capstone.restaurantorders.service.MenuItemService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class MenuItemController {
 
     // CREATE
     @PostMapping
-    public String createMenuItem(@RequestBody MenuItemRequestDTO request) {
+    public String createMenuItem( @Valid @RequestBody MenuItemRequestDTO request) {
         return menuItemService.createMenuItem(request);
     }
 

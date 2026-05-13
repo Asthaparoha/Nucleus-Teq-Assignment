@@ -117,9 +117,15 @@ public class RestaurantServiceImpl implements RestaurantService {
         Restaurant restaurant = restaurantRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Restaurant not found"));
 
-        restaurantRepository.delete(restaurant);
+        try {
+            restaurantRepository.delete(restaurant);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(
+                    "Cannot delete restaurant because categories or menu items exist"
+            );
+        }
     }
-
     /**
      * Converts a restaurant entity into a response DTO.
      *

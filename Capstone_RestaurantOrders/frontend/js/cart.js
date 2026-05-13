@@ -3,7 +3,7 @@ window.onload = function(){
   const token = localStorage.getItem("token");
 
   if(!token){
-    alert("Please login first ❌");
+    alert("Please login first");
     window.location.href = "login.html";
     return;
   }
@@ -12,7 +12,8 @@ window.onload = function(){
   loadCart();
 };
 
-//  LOAD CART 
+
+
 function loadCart() {
 
     const userId = localStorage.getItem("userId");
@@ -21,9 +22,22 @@ function loadCart() {
     fetch(`http://localhost:8082/api/cart/${userId}`, {
         headers: { "Authorization": "Bearer " + token }
     })
-    .then(res => res.json())
-    .then(data => displayCart(data));
+    .then(async res => {
+
+        if(!res.ok){
+            throw new Error("Failed to load cart");
+        }
+
+        return res.json();
+    })
+    .then(data => displayCart(data))
+    .catch(err => {
+        console.error(err);
+        alert(err.message);
+    });
 }
+
+
 
 function displayCart(cart) {
 
@@ -34,12 +48,12 @@ function displayCart(cart) {
 
     if (!cart.items || cart.items.length === 0) {
         container.innerHTML = "<p>Your cart is empty</p>";
+        totalDiv.innerText = "₹ 0";
         return;
     }
 
     cart.items.forEach(item => {
 
-        //  image logic
         let img = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800";
 
         const name = item.itemName.toLowerCase();
@@ -69,6 +83,9 @@ function displayCart(cart) {
 
     totalDiv.innerText = "₹ " + cart.totalAmount;
 }
+
+
+
 function removeItem(cartItemId) {
 
     const token = localStorage.getItem("token");
@@ -77,25 +94,50 @@ function removeItem(cartItemId) {
         method: "DELETE",
         headers: { "Authorization": "Bearer " + token }
     })
-    .then(() => {
-        loadCart();     
-        loadWallet();   
+    .then(async res => {
+
+        if(!res.ok){
+            throw new Error("Failed to remove item");
+        }
+
+        loadCart();
+        loadWallet();
+    })
+    .catch(err => {
+        console.error(err);
+        alert(err.message);
     });
 }
 
-//  PLACE ORDER
+
+
 function placeOrder() {
 
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
 
-    const street = document.getElementById("street").value;
-    const city = document.getElementById("city").value;
-    const state = document.getElementById("state").value;
-    const zip = document.getElementById("zip").value;
+    const street = document.getElementById("street").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const state = document.getElementById("state").value.trim();
+    const zip = document.getElementById("zip").value.trim();
 
     if (!street || !city || !state || !zip) {
-        alert("Fill address properly ❌");
+        alert("All address fields are required");
+        return;
+    }
+
+    if(!/^[A-Za-z ]+$/.test(city)){
+        alert("City should contain only alphabets");
+        return;
+    }
+
+    if(!/^[A-Za-z ]+$/.test(state)){
+        alert("State should contain only alphabets");
+        return;
+    }
+
+    if(!/^[0-9]{6}$/.test(zip)){
+        alert("Zip code must be exactly 6 digits");
         return;
     }
 
@@ -113,22 +155,46 @@ function placeOrder() {
             zipCode: zip
         })
     })
-    .then(res => {
-        if (!res.ok) throw new Error("Order failed");
-        return res.text();
+    .then(async res => {
+
+        let data;
+
+        try{
+            data = await res.json();
+        }catch{
+            data = {};
+        }
+
+        if(!res.ok){
+
+            let errorMessage = "";
+
+            if(typeof data === "object"){
+                for(let key in data){
+                    errorMessage += data[key] + "\n";
+                }
+            }else{
+                errorMessage = "Order failed";
+            }
+
+            throw new Error(errorMessage);
+        }
+
+        return data;
     })
-    .then(data => {
-        alert(data);
-        loadWallet();   
+    .then(() => {
+        alert("Order placed successfully");
+        loadWallet();
         window.location.href = "orders.html";
     })
     .catch(err => {
         console.error(err);
-        alert("Order failed ❌");
+        alert(err.message);
     });
 }
 
-// WALLET FUNCTION
+
+
 function loadWallet() {
 
     const userId = localStorage.getItem("userId");
@@ -141,13 +207,23 @@ function loadWallet() {
             "Authorization": "Bearer " + token
         }
     })
-    .then(res => res.json())
+    .then(async res => {
+
+        if(!res.ok){
+            throw new Error("Failed to load wallet");
+        }
+
+        return res.json();
+    })
     .then(data => {
         document.getElementById("wallet").innerText =
-            "💰 Wallet: ₹" + data.walletBalance;
+            "Wallet: ₹" + data.walletBalance;
     })
     .catch(err => console.error(err));
 }
+
+
+
 function logout(){
   localStorage.clear();
   window.location.href = "index.html";

@@ -1,12 +1,21 @@
 package com.capstone.restaurantorders.dto;
 
-public class MenuItemRequestDTO {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 
-    private String name;
-    private Double price;
+public class MenuItemRequestDTO {
     private Long categoryId;
     private Long restaurantId;
+    @NotBlank(message = "Menu item name is required")
+    @Pattern(regexp = "^[A-Za-z ]+$",
+            message = "Menu item name should contain only alphabets")
+    private String name;
 
+    @NotNull(message = "Price is required")
+    @Positive(message = "Price must be greater than 0")
+    private Double price;
     public String getName() {
         return name;
     }

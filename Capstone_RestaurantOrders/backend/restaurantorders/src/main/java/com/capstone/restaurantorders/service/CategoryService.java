@@ -12,4 +12,6 @@ public interface CategoryService {
     List<CategoryResponseDTO> getCategoriesByRestaurant(Long restaurantId);
 
     void deleteCategory(Long id);
+
+    CategoryResponseDTO updateCategory(Long id, CategoryRequestDTO request);
 }
